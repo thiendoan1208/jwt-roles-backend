@@ -1,0 +1,23 @@
+{
+  "name": "jwt-roles-backend",
+  "version": "1.0.0",
+  "description": "Backend for jwt-roles",
+  "homepage": "https://github.com/thiendoan1208/jwt-roles-backend#readme",
+  "bugs": {
+    "url": "https://github.com/thiendoan1208/jwt-roles-backend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiendoan1208/jwt-roles-backend.git"
+  },
+  "license": "ISC",
+  "author": "ThienDoan",
+  "type": "commonjs",
+  "main": "server.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
