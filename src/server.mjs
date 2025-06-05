@@ -8,6 +8,10 @@ const app = express();
 const port = process.env.PORT || 8080;
 const hostname = process.env.HOST_NAME;
 
+// config body-parse
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Config viewEngine, static files
 configViewEngine(app);
 
