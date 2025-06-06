@@ -1,5 +1,5 @@
-import connection from "../configs/db.mjs";
-import { hashPassword } from "../configs/hashpasword.mjs";
+import connection from "../config/db.mjs";
+import { hashPassword } from "../config/hashpasword.mjs";
 
 const createNewUser = async (req) => {
   let { email, username, password } = req;
@@ -48,7 +48,7 @@ const handleDeleteUser = async (userID) => {
 
 const handleUpdateUser = async (reqBody) => {
   const { email, username, id } = reqBody;
-  tryk {
+  try {
     await connection.execute(
       `UPDATE users
       SET email = ?, username = ?

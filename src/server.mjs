@@ -1,5 +1,5 @@
 import express from "express";
-import configViewEngine from "./configs/viewEngine.mjs";
+import configViewEngine from "./config/viewEngine.mjs";
 import webRoutes from "./routes/webRoutes.mjs";
 import { config } from "dotenv";
 config();
