@@ -21,7 +21,16 @@ const handleUserList = async () => {
     return result;
   } catch (err) {
     console.log(err);
+    return [];
   }
 };
 
-export { createNewUser, handleUserList };
+const handleDeleteUser = async (userID) => {
+  try {
+    await connection.execute(`DELETE FROM users WHERE id = ?`, [userID]);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { createNewUser, handleUserList, handleDeleteUser };
