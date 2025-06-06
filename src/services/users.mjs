@@ -25,6 +25,19 @@ const handleUserList = async () => {
   }
 };
 
+const getUserByID = async (userID) => {
+  try {
+    const [result] = await connection.execute(
+      `SELECT * from users WHERE id = ?`,
+      [userID]
+    );
+    return result;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+};
+
 const handleDeleteUser = async (userID) => {
   try {
     await connection.execute(`DELETE FROM users WHERE id = ?`, [userID]);
@@ -33,4 +46,24 @@ const handleDeleteUser = async (userID) => {
   }
 };
 
-export { createNewUser, handleUserList, handleDeleteUser };
+const handleUpdateUser = async (reqBody) => {
+  const { email, username, id } = reqBody;
+  tryk {
+    await connection.execute(
+      `UPDATE users
+      SET email = ?, username = ?
+      WHERE id = ?`,
+      [email, username, id]
+    );
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export {
+  createNewUser,
+  handleUserList,
+  handleDeleteUser,
+  getUserByID,
+  handleUpdateUser,
+};

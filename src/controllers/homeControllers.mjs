@@ -2,6 +2,8 @@ import {
   createNewUser,
   handleUserList,
   handleDeleteUser,
+  getUserByID,
+  handleUpdateUser,
 } from "../services/users.mjs";
 
 const getHomePage = (req, res) => {
@@ -26,7 +28,7 @@ const createUser = async (req, res) => {
 const getUserList = async (req, res) => {
   try {
     const userList = await handleUserList();
-    res.render("user-table.ejs", { userList });
+    return res.render("user-table.ejs", { userList });
   } catch (error) {
     console.log(error);
   }
@@ -36,10 +38,35 @@ const getUserList = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     await handleDeleteUser(req.params.userID);
-    res.redirect("/users/user-list");
+    return res.redirect("/users/user-list");
   } catch (error) {
     console.log(error);
   }
 };
 
-export { getHomePage, getUserPage, createUser, getUserList, deleteUser };
+const updateUserPage = async (req, res) => {
+  try {
+    const user = await getUserByID(req.params.userID);
+    return res.render("update-user-page.ejs", { user });
+  } catch (error) {
+    console.log(error);
+  }
+};
+const updateUser = async (req, res) => {
+  try {
+    await handleUpdateUser(req.body);
+    return res.redirect("/users/user-list");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export {
+  getHomePage,
+  getUserPage,
+  createUser,
+  getUserList,
+  deleteUser,
+  updateUserPage,
+  updateUser,
+};

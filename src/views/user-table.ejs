@@ -40,7 +40,9 @@
                         </td>
                         <td>
                             <div class="">
-                                <button class="btn btn-warning d-flex">Edit</button>
+                                <button class="btn btn-warning d-flex">
+                                    <a style="text-decoration: none; color: black;"
+                                        href="/update-user-page/<%= user.id %>">Update</a></button>
                                 <form class="" action="/users/delete-user/<%= user.id %>" method="post">
                                     <button class="btn btn-danger">Delete</button>
                                 </form>
