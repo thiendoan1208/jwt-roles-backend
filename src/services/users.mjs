@@ -7,7 +7,7 @@ const createNewUser = async (req) => {
 
   try {
     await connection.execute(
-      `INSERT INTO users (email, username, password) values (?, ?, ?)`,
+      `INSERT INTO Users (email, username, password) values (?, ?, ?)`,
       [email, username, encriptedPassword]
     );
   } catch (err) {
@@ -17,7 +17,7 @@ const createNewUser = async (req) => {
 
 const handleUserList = async () => {
   try {
-    const [result] = await connection.execute(`SELECT * from users`);
+    const [result] = await connection.execute(`SELECT * from Users`);
     return result;
   } catch (err) {
     console.log(err);
@@ -28,7 +28,7 @@ const handleUserList = async () => {
 const getUserByID = async (userID) => {
   try {
     const [result] = await connection.execute(
-      `SELECT * from users WHERE id = ?`,
+      `SELECT * from Users WHERE id = ?`,
       [userID]
     );
     return result;
@@ -40,7 +40,7 @@ const getUserByID = async (userID) => {
 
 const handleDeleteUser = async (userID) => {
   try {
-    await connection.execute(`DELETE FROM users WHERE id = ?`, [userID]);
+    await connection.execute(`DELETE FROM Users WHERE id = ?`, [userID]);
   } catch (err) {
     console.log(err);
   }
@@ -50,7 +50,7 @@ const handleUpdateUser = async (reqBody) => {
   const { email, username, id } = reqBody;
   try {
     await connection.execute(
-      `UPDATE users
+      `UPDATE Users
       SET email = ?, username = ?
       WHERE id = ?`,
       [email, username, id]

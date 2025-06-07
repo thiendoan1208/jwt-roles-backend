@@ -1,6 +1,7 @@
 import express from "express";
 import configViewEngine from "./config/viewEngine.mjs";
 import webRoutes from "./routes/webRoutes.mjs";
+import connection from "./config/connectDB.mjs";
 import { config } from "dotenv";
 config();
 
@@ -14,6 +15,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Config viewEngine, static files
 configViewEngine(app);
+
+// Connection DB
+connection();
 
 // Routes
 app.use("/", webRoutes);

@@ -12,7 +12,7 @@
   },
   "license": "ISC",
   "author": "ThienDoan",
-  "type": "module",
+  "type": "commonjs",
   "main": "server.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

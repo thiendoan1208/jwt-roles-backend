@@ -1,10 +1,11 @@
 {
   "development": {
     "username": "root",
-    "password": null,
-    "database": "database_development",
+    "password": "1208",
+    "database": "jwt-roles",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": "8888"
   },
   "test": {
     "username": "root",
