@@ -20,8 +20,9 @@ export default (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "User",
+      modelName: "Users",
     }
   );
   return User;
 };
+ 
