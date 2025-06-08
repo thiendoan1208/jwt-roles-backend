@@ -18,16 +18,16 @@
         </div>
         <form method="post" action="/users/update-user">
             <div class="mb-3 d-none">
-                <input value="<%=user[0].id%>" type="text" class="form-control" name="id">
+                <input value="<%=user.id%>" type="text" class="form-control" name="id">
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input value="<%=user[0].email%>" type="email" class="form-control" id="email"
-                    aria-describedby="emailHelp" name="email">
+                <input value="<%=user.email%>" type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                    name="email">
             </div>
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input value="<%=user[0].username %>" type="text" class="form-control" id="username"
+                <input value="<%=user.username %>" type="text" class="form-control" id="username"
                     aria-describedby="emailHelp" name="username">
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>

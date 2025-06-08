@@ -1,5 +1,4 @@
 const { hashPassword } = require("../config/hashpasword.js");
-const { connection } = require("../config/db.js");
 const db = require("../models");
 
 const createNewUser = async (req) => {
@@ -19,7 +18,7 @@ const createNewUser = async (req) => {
 
 const handleUserList = async () => {
   try {
-    const [result] = await connection.execute(`SELECT * from Users`);
+    const result = await db.Users.findAll();
     return result;
   } catch (err) {
     console.log(err);
@@ -29,11 +28,10 @@ const handleUserList = async () => {
 
 const getUserByID = async (userID) => {
   try {
-    const [result] = await connection.execute(
-      `SELECT * from Users WHERE id = ?`,
-      [userID]
-    );
-    return result;
+    const user = await db.Users.findOne({
+      where: { id: userID },
+    });
+    return user;
   } catch (err) {
     console.log(err);
     return [];
@@ -42,7 +40,9 @@ const getUserByID = async (userID) => {
 
 const handleDeleteUser = async (userID) => {
   try {
-    await connection.execute(`DELETE FROM Users WHERE id = ?`, [userID]);
+    await db.Users.destroy({
+      where: { id: userID },
+    });
   } catch (err) {
     console.log(err);
   }
@@ -51,11 +51,9 @@ const handleDeleteUser = async (userID) => {
 const handleUpdateUser = async (reqBody) => {
   const { email, username, id } = reqBody;
   try {
-    await connection.execute(
-      `UPDATE Users
-      SET email = ?, username = ?
-      WHERE id = ?`,
-      [email, username, id]
+    await db.Users.update(
+      { email: email, username: username },
+      { where: { id: id } }
     );
   } catch (err) {
     console.log(err);
