@@ -1,10 +1,10 @@
-import {
+const {
   createNewUser,
   handleUserList,
   handleDeleteUser,
   getUserByID,
   handleUpdateUser,
-} from "../services/users.mjs";
+} = require("../services/users.js");
 
 const getHomePage = (req, res) => {
   return res.render("home.ejs");
@@ -61,7 +61,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-export {
+module.exports = {
   getHomePage,
   getUserPage,
   createUser,

@@ -1,8 +1,8 @@
-import express from "express";
-import configViewEngine from "./config/viewEngine.mjs";
-import webRoutes from "./routes/webRoutes.mjs";
-import connection from "./config/connectDB.mjs";
-import { config } from "dotenv";
+const express = require("express");
+const { configViewEngine } = require("./config/viewEngine.js");
+const { router } = require("./routes/webRoutes.js");
+const { connection } = require("./config/connectDB.js");
+const { config } = require("dotenv");
 config();
 
 const app = express();
@@ -20,7 +20,7 @@ configViewEngine(app);
 connection();
 
 // Routes
-app.use("/", webRoutes);
+app.use("/", router);
 
 // Running info
 app.listen(port, hostname, () => {

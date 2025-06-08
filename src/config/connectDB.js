@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize("jwt-roles", "root", "1208", {
   host: "localhost",
@@ -15,4 +15,6 @@ const connection = async () => {
   }
 };
 
-export default connection;
+module.exports = {
+  connection,
+};

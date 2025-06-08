@@ -1,15 +1,17 @@
-import connection from "../config/db.mjs";
-import { hashPassword } from "../config/hashpasword.mjs";
+const { hashPassword } = require("../config/hashpasword.js");
+const { connection } = require("../config/db.js");
+const db = require("../models");
 
 const createNewUser = async (req) => {
   let { email, username, password } = req;
   let encriptedPassword = await hashPassword(password);
 
   try {
-    await connection.execute(
-      `INSERT INTO Users (email, username, password) values (?, ?, ?)`,
-      [email, username, encriptedPassword]
-    );
+    await db.Users.create({
+      username: username,
+      email: email,
+      password: encriptedPassword,
+    });
   } catch (err) {
     console.log(err);
   }
@@ -60,7 +62,7 @@ const handleUpdateUser = async (reqBody) => {
   }
 };
 
-export {
+module.exports = {
   createNewUser,
   handleUserList,
   handleDeleteUser,

@@ -1,5 +1,5 @@
-import express from "express";
-import {
+const express = require("express");
+const {
   getHomePage,
   getUserPage,
   createUser,
@@ -7,8 +7,7 @@ import {
   deleteUser,
   updateUserPage,
   updateUser,
-} from "../controllers/homeControllers.mjs";
-
+} = require("../controllers/homeControllers.js");
 const router = express.Router();
 
 router.get("/", getHomePage);
@@ -21,4 +20,4 @@ router.get("/users/user-list", getUserList);
 router.post("/users/delete-user/:userID", deleteUser);
 router.post("/users/update-user", updateUser);
 
-export default router;
+module.exports = { router };

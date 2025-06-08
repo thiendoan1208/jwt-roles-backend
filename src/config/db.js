@@ -1,5 +1,5 @@
-import mysql from "mysql2/promise";
-import { config } from "dotenv";
+const mysql = require("mysql2/promise");
+const { config } = require("dotenv");
 config();
 
 const connection = mysql.createPool({
@@ -17,4 +17,6 @@ const connection = mysql.createPool({
   keepAliveInitialDelay: 0,
 });
 
-export default connection;
+module.exports = {
+  connection,
+};
