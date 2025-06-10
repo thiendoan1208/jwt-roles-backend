@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      User.belongsTo(models.Group);
+      User.belongsToMany(models.Project, { through: "Pr ojectUser" });
     }
   }
 
@@ -22,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       sex: DataTypes.STRING,
       address: DataTypes.STRING,
       phone: DataTypes.STRING,
-      groupID: DataTypes.INTERGER,
+      groupID: DataTypes.INTEGER,
     },
     {
       sequelize,

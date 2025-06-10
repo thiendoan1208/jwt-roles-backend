@@ -1,3 +1,4 @@
+const { where, Model } = require("sequelize");
 const { hashPassword } = require("../config/hashpasword.js");
 const db = require("../models");
 
@@ -6,7 +7,7 @@ const createNewUser = async (req) => {
   let encriptedPassword = await hashPassword(password);
 
   try {
-    await db.Users.create({
+    await db.User.create({
       username: username,
       email: email,
       password: encriptedPassword,
@@ -18,7 +19,7 @@ const createNewUser = async (req) => {
 
 const handleUserList = async () => {
   try {
-    const result = await db.Users.findAll();
+    const result = await db.User.findAll();
     return result;
   } catch (err) {
     console.log(err);
@@ -28,7 +29,7 @@ const handleUserList = async () => {
 
 const getUserByID = async (userID) => {
   try {
-    const user = await db.Users.findOne({
+    const user = await db.User.findOne({
       where: { id: userID },
     });
     return user;
@@ -40,7 +41,7 @@ const getUserByID = async (userID) => {
 
 const handleDeleteUser = async (userID) => {
   try {
-    await db.Users.destroy({
+    await db.User.destroy({
       where: { id: userID },
     });
   } catch (err) {
@@ -51,7 +52,7 @@ const handleDeleteUser = async (userID) => {
 const handleUpdateUser = async (reqBody) => {
   const { email, username, id } = reqBody;
   try {
-    await db.Users.update(
+    await db.User.update(
       { email: email, username: username },
       { where: { id: id } }
     );

@@ -16,8 +16,8 @@ module.exports = (sequelize, DataTypes) => {
 
   ProjectUser.init(
     {
-      projectID: DataTypes.INTERGER,
-      userID: DataTypes.INTERGER,
+      projectID: DataTypes.INTEGER,
+      userID: DataTypes.INTEGER,
     },
     {
       sequelize,
