@@ -1,5 +1,4 @@
-const { where, Model } = require("sequelize");
-const { hashPassword } = require("../config/hashpasword.js");
+const { hashPassword } = require("../config/hashPasword");
 const db = require("../models");
 
 const createNewUser = async (req) => {

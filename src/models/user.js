@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.belongsTo(models.Group);
-      User.belongsToMany(models.Project, { through: "Pr ojectUser" });
+      User.belongsToMany(models.Project, { through: "ProjectUser" });
     }
   }
 

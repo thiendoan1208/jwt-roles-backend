@@ -1,6 +1,8 @@
 const express = require("express");
 const { configViewEngine } = require("./config/viewEngine.js");
+const { configCORS } = require("./config/cors.js");
 const { router } = require("./routes/webRoutes.js");
+const { apiRouter } = require("./routes/apiRoutes.js");
 const { connection } = require("./config/connectDB.js");
 const { config } = require("dotenv");
 config();
@@ -8,6 +10,9 @@ config();
 const app = express();
 const port = process.env.PORT || 8080;
 const hostname = process.env.HOST_NAME;
+
+// config CORS
+configCORS(app);
 
 // config body-parse
 app.use(express.json());
@@ -21,6 +26,7 @@ connection();
 
 // Routes
 app.use("/", router);
+app.use("/api", apiRouter);
 
 // Running info
 app.listen(port, hostname, () => {
