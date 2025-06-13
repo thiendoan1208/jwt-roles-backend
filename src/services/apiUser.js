@@ -1,4 +1,5 @@
 const db = require("../models/index");
+const bcrypt = require("bcrypt");
 const { hashPassword } = require("../config/hashPasword");
 
 const checkEmailExist = async (userEmail) => {
@@ -25,6 +26,10 @@ const checkPhoneExist = async (userPhone) => {
   }
 };
 
+const checkPassword = (inputPass, hashPassword) => {
+  return bcrypt.compareSync(inputPass, hashPassword);
+};
+
 const createNewUser = async (userData) => {
   try {
     let isEmailExist = await checkEmailExist(userData.email);
@@ -34,6 +39,7 @@ const createNewUser = async (userData) => {
       return {
         EM: "Email is already exist",
         EC: 1,
+        DT: "",
       };
     }
 
@@ -41,6 +47,7 @@ const createNewUser = async (userData) => {
       return {
         EM: "Phone is already exist",
         EC: 1,
+        DT: "",
       };
     }
 
@@ -67,6 +74,46 @@ const createNewUser = async (userData) => {
   }
 };
 
+const handleSignIn = async (data) => {
+  try {
+    let isEmailExist = await checkEmailExist(data.email);
+    let user = await db.User.findOne({
+      where: { email: data.email },
+      raw: true,
+    });
+
+    if (!isEmailExist && !user) {
+      return {
+        EM: "Emal or password is not correct",
+        EC: 1,
+        DT: "",
+      };
+    } else {
+      let isCorrectPassword = checkPassword(data.password, user.password);
+      if (isCorrectPassword) {
+        return {
+          EM: "Login successfully",
+          EC: 0,
+          data: "",
+        };
+      } else {
+        return {
+          EM: "Emal or password is not correct",
+          EC: 1,
+          DT: "",
+        };
+      }
+    }
+  } catch (error) {
+    return {
+      EM: "Something wrong with server",
+      EC: -1,
+      data: "",
+    };
+  }
+};
+
 module.exports = {
   createNewUser,
+  handleSignIn,
 };

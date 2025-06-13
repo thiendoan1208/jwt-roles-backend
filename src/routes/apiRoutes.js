@@ -1,5 +1,6 @@
 const express = require("express");
 const {
+  signInUser,
   createUser,
   getUserList,
   updateUser,
@@ -7,6 +8,9 @@ const {
 } = require("../controllers/apiController");
 
 const apiRouter = express.Router();
+
+// Sign in user
+apiRouter.post("/users/sign-in", signInUser);
 
 // CRUD User
 apiRouter.post("/users/create-user", createUser);
