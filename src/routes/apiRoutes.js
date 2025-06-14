@@ -1,22 +1,23 @@
 const express = require("express");
+const { signInUser, createUser } = require("../controllers/apiController");
 const {
-  signInUser,
-  createUser,
-  getUserList,
-  updateUser,
-  deleteUser,
-} = require("../controllers/apiController");
+  handleCreateUser,
+  handleListUser,
+  handleUpdateUser,
+  handledeleteUser,
+} = require("../controllers/userController");
 
 const apiRouter = express.Router();
 
-// Sign in user
+// Sign in / Sign up User
+apiRouter.post("/users/create-user", createUser);
 apiRouter.post("/users/sign-in", signInUser);
 
 // CRUD User
-apiRouter.post("/users/create-user", createUser);
-apiRouter.get("/users/user-list", getUserList);
-apiRouter.post("/users/update-user", updateUser);
-apiRouter.post("/users/delete-user/:userID", deleteUser);
+apiRouter.post("/user/create", handleCreateUser);
+apiRouter.get("/user/list", handleListUser);
+apiRouter.put("/user/update", handleUpdateUser);
+apiRouter.delete("/user/delete", handledeleteUser);
 
 module.exports = {
   apiRouter,
