@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const db = require("../models");
 
 const createNewUser = () => {
@@ -78,10 +79,25 @@ const updateUser = () => {
   }
 };
 
-const deleteUser = () => {
+const deleteUser = async (id) => {
   try {
+    await db.User.destroy({
+      where: {
+        id: id,
+      },
+    });
+    return {
+      EM: "Delete user success",
+      EC: 0,
+      DT: [],
+    };
   } catch (error) {
     console.log(error);
+    return {
+      EM: "Something wrong with the server",
+      EC: 1,
+      DT: [],
+    };
   }
 };
 
