@@ -1,6 +1,7 @@
 const {
   createNewUser,
   getAllUser,
+  getUserWithPagination,
   updateUser,
   deleteUser,
 } = require("../services/userCRUDService");
@@ -19,12 +20,17 @@ const handleCreateUser = (req, res) => {
 
 const handleListUser = async (req, res) => {
   try {
-    let data = await getAllUser();
-    return res.status(200).json({
-      EM: data.EM,
-      EC: data.EC,
-      DT: data.DT,
-    });
+    if (req.query.page && req.query.limit) {
+      let page = req.query.page;
+      let limit = req.query.limit;
+      
+      let data = await getUserWithPagination(+page, +limit);
+      return res.status(200).json({
+        EM: data.EM,
+        EC: data.EC,
+        DT: data.DT,
+      });
+    }
   } catch (error) {
     console.log(error);
     return res.status(500).json({
