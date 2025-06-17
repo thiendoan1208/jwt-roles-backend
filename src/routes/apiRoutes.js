@@ -7,6 +7,8 @@ const {
   handledeleteUser,
 } = require("../controllers/userController");
 
+const { handleReadGroup } = require("../controllers/groupController");
+
 const apiRouter = express.Router();
 
 // Sign in / Sign up User
@@ -18,6 +20,9 @@ apiRouter.post("/user/create", handleCreateUser);
 apiRouter.get("/user/list", handleListUser);
 apiRouter.put("/user/update", handleUpdateUser);
 apiRouter.delete("/user/delete", handledeleteUser);
+
+// Group
+apiRouter.get("/group/read", handleReadGroup);
 
 module.exports = {
   apiRouter,

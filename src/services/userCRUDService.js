@@ -1,8 +1,23 @@
-const { where } = require("sequelize");
 const db = require("../models");
+const { hashPassword } = require("../config/hashPasword");
 
-const createNewUser = () => {
+const createNewUser = async (userData) => {
+  let encriptedPassword = await hashPassword(userData.password);
   try {
+    await db.User.create({
+      email: userData.email,
+      username: userData.username,
+      password: encriptedPassword,
+      sex: userData.sex,
+      address: userData.address,
+      phone: userData.phone,
+      groupID: userData.groupID,
+    });
+    return {
+      EM: "A user is created successfully",
+      EC: 0,
+      data: "",
+    };
   } catch (error) {
     console.log(error);
   }

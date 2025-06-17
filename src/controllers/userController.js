@@ -6,8 +6,14 @@ const {
   deleteUser,
 } = require("../services/userCRUDService");
 
-const handleCreateUser = (req, res) => {
+const handleCreateUser = async (req, res) => {
   try {
+    let data = await createNewUser(req.body);
+    return res.status(200).json({
+      EM: data.EM,
+      EC: data.EC,
+      DT: data.DT,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -56,7 +62,7 @@ const handleUpdateUser = (req, res) => {
 const handledeleteUser = async (req, res) => {
   try {
     let data = await deleteUser(req.query.id);
-    res.status(200).json({
+    return res.status(200).json({
       EM: data.EM,
       EC: data.EC,
       DT: data.DT,
