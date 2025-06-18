@@ -47,8 +47,14 @@ const handleListUser = async (req, res) => {
   }
 };
 
-const handleUpdateUser = (req, res) => {
+const handleUpdateUser = async (req, res) => {
   try {
+    let data = await updateUser(req.body);
+    return res.status(200).json({
+      EM: data.EM,
+      EC: data.EC,
+      DT: data.DT,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({

@@ -59,7 +59,15 @@ const getUserWithPagination = async (page, limit) => {
   try {
     let offset = (page - 1) * limit;
     let { count, rows } = await db.User.findAndCountAll({
-      attributes: ["id", "username", "email", "phone", "sex"],
+      attributes: [
+        "id",
+        "username",
+        "email",
+        "phone",
+        "address",
+        "sex",
+        "groupID",
+      ],
       include: { model: db.Group, attributes: ["name", "description"] },
       nest: true,
       offset: offset,
@@ -87,10 +95,36 @@ const getUserWithPagination = async (page, limit) => {
   }
 };
 
-const updateUser = () => {
+const updateUser = async (user) => {
   try {
+    let data = await db.User.update(
+      {
+        email: user.email,
+        username: user.username,
+        phone: user.phone,
+        address: user.address,
+        sex: user.sex,
+        groupID: user.groupID,
+      },
+      {
+        where: {
+          id: user.id,
+        },
+      }
+    );
+
+    return {
+      EM: "Update success",
+      EC: 0,
+      DT: data,
+    };
   } catch (error) {
     console.log(error);
+    return {
+      EM: "Something wrong with the server",
+      EC: 1,
+      DT: [],
+    };
   }
 };
 
