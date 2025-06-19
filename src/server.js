@@ -4,7 +4,7 @@ const { configCORS } = require("./config/cors.js");
 const { router } = require("./routes/webRoutes.js");
 const { apiRouter } = require("./routes/apiRoutes.js");
 const { connection } = require("./config/connectDB.js");
-const { createJWT, verifyJWT } = require("./middleware/JWTAction.js");
+const cookieParser = require("cookie-parser");
 const { config } = require("dotenv");
 config();
 
@@ -15,9 +15,12 @@ const hostname = process.env.HOST_NAME;
 // config CORS
 configCORS(app);
 
-// config body-parse
+// config body-parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// config cookie-parser
+app.use(cookieParser());
 
 // Config viewEngine, static files
 configViewEngine(app);
