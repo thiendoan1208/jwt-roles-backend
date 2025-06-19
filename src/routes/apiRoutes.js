@@ -6,8 +6,11 @@ const {
   handleUpdateUser,
   handledeleteUser,
 } = require("../controllers/userController");
-
 const { handleReadGroup } = require("../controllers/groupController");
+const {
+  checkUserJWT,
+  checkUserPermission,
+} = require("../middleware/JWTAction");
 
 const apiRouter = express.Router();
 
@@ -17,7 +20,7 @@ apiRouter.post("/users/sign-in", signInUser);
 
 // CRUD User
 apiRouter.post("/user/create", handleCreateUser);
-apiRouter.get("/user/list", handleListUser);
+apiRouter.get("/user/list", checkUserJWT, checkUserPermission, handleListUser);
 apiRouter.put("/user/update", handleUpdateUser);
 apiRouter.delete("/user/delete", handledeleteUser);
 
