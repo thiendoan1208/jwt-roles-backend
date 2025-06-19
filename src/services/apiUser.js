@@ -1,6 +1,8 @@
 const db = require("../models/index");
 const bcrypt = require("bcrypt");
 const { hashPassword } = require("../config/hashPasword");
+const { getGroupWithRoles } = require("./JWTServices");
+const { createJWT } = require("../middleware/JWTAction");
 
 const checkEmailExist = async (userEmail) => {
   let user = await db.User.findOne({
@@ -60,6 +62,7 @@ const createNewUser = async (userData) => {
       sex: userData.sex,
       address: userData.address,
       phone: userData.phone,
+      groupID: 4,
     });
 
     return {
@@ -91,10 +94,21 @@ const handleSignIn = async (data) => {
     } else {
       let isCorrectPassword = checkPassword(data.password, user.password);
       if (isCorrectPassword) {
+        // Token
+        let roles = await getGroupWithRoles(user);
+        let payload = {
+          email: user.email,
+          roles,
+        };
+        let token = createJWT(payload);
+
         return {
           EM: "Login successfully",
           EC: 0,
-          data: "",
+          DT: {
+            access_token: token,
+            roles,
+          },
         };
       } else {
         return {

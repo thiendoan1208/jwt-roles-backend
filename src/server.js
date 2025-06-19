@@ -4,6 +4,7 @@ const { configCORS } = require("./config/cors.js");
 const { router } = require("./routes/webRoutes.js");
 const { apiRouter } = require("./routes/apiRoutes.js");
 const { connection } = require("./config/connectDB.js");
+const { createJWT, verifyJWT } = require("./middleware/JWTAction.js");
 const { config } = require("dotenv");
 config();
 
