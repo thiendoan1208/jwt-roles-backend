@@ -108,6 +108,8 @@ const handleSignIn = async (data) => {
           DT: {
             access_token: token,
             roles,
+            email: user.email,
+            username: user.username,
           },
         };
       } else {

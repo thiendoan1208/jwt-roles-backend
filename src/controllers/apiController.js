@@ -30,8 +30,10 @@ const signInUser = async (req, res) => {
   try {
     const data = await handleSignIn(req.body);
 
-    // Set Cookie
-    res.cookie("jwt", data.DT.access_token, { httpOnly: true });
+    if (data && data.DT && data.DT.access_token) {
+      // Set Cookie
+      res.cookie("jwt", data.DT.access_token, { httpOnly: true });
+    }
 
     return res.status(200).json({
       EM: data.EM,
