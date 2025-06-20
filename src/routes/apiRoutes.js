@@ -14,13 +14,15 @@ const {
 
 const apiRouter = express.Router();
 
+apiRouter.all("/*splat", checkUserJWT, checkUserPermission);
+
 // Sign in / Sign up User
 apiRouter.post("/users/create-user", createUser);
 apiRouter.post("/users/sign-in", signInUser);
 
 // CRUD User
 apiRouter.post("/user/create", handleCreateUser);
-apiRouter.get("/user/list", checkUserJWT, checkUserPermission, handleListUser);
+apiRouter.get("/user/list", handleListUser);
 apiRouter.put("/user/update", handleUpdateUser);
 apiRouter.delete("/user/delete", handledeleteUser);
 

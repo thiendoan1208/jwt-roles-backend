@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const { config } = require("dotenv");
 config();
 
+const nonSecurePaths = ["/", "/users/create-user", "/users/sign-in"];
+
 const createJWT = (payload) => {
   try {
     let token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" });
@@ -23,6 +25,10 @@ const verifyJWT = (token) => {
 };
 
 const checkUserJWT = (req, res, next) => {
+  if (nonSecurePaths.includes(req.path)) {
+    return next();
+  }
+
   let cookies = req.cookies;
   if (cookies && cookies.jwt) {
     let token = cookies.jwt;
@@ -48,6 +54,10 @@ const checkUserJWT = (req, res, next) => {
 };
 
 const checkUserPermission = (req, res, next) => {
+  if (nonSecurePaths.includes(req.path)) {
+    return next();
+  }
+
   if (req.user) {
     let email = req.user.email;
     let roles = req.user.roles;
