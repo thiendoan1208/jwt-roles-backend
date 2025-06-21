@@ -32,7 +32,10 @@ const signInUser = async (req, res) => {
 
     if (data && data.DT && data.DT.access_token) {
       // Set Cookie
-      res.cookie("jwt", data.DT.access_token, { httpOnly: true });
+      res.cookie("jwt", data.DT.access_token, {
+        httpOnly: true,
+        maxAge: 60 * 60 * 1000,
+      });
     }
 
     return res.status(200).json({
