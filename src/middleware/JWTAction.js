@@ -24,12 +24,25 @@ const verifyJWT = (token) => {
   }
 };
 
+const extractBearerToken = (req, res) => {
+  if (
+    req.header.authorization &&
+    req.header.authorization.split(" ")[0] === "Bearer"
+  ) {
+    return req.header.authorization.split(" ")[1];
+  }
+
+  return null;
+};
+
 const checkUserJWT = (req, res, next) => {
   if (nonSecurePaths.includes(req.path)) {
     return next();
   }
 
   let cookies = req.cookies;
+  const tokenFromHeader = extractBearerToken(req);
+
   if (cookies && cookies.jwt) {
     let token = cookies.jwt;
     let decoded = verifyJWT(token);
