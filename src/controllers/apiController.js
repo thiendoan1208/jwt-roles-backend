@@ -52,16 +52,25 @@ const signInUser = async (req, res) => {
   }
 };
 
-const getUserList = async (req, res) => {};
-
-const updateUser = async (req, res) => {};
-
-const deleteUser = async (req, res) => {};
+const logoutUser = (req, res) => {
+  try {
+    res.clearCookie("jwt");
+    return res.status(200).json({
+      EM: "Logout success",
+      EC: 0,
+      data: "",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      EM: "Error from server",
+      EC: "-1",
+      data: "",
+    });
+  }
+};
 
 module.exports = {
   createUser,
   signInUser,
-  getUserList,
-  updateUser,
-  deleteUser,
+  logoutUser,
 };

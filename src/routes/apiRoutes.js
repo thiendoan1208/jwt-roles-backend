@@ -1,5 +1,5 @@
 const express = require("express");
-const { signInUser, createUser } = require("../controllers/apiController");
+const { signInUser, createUser, logoutUser } = require("../controllers/apiController");
 const {
   handleCreateUser,
   handleListUser,
@@ -19,6 +19,7 @@ apiRouter.all("/*splat", checkUserJWT, checkUserPermission);
 // Sign in / Sign up User
 apiRouter.post("/users/create-user", createUser);
 apiRouter.post("/users/sign-in", signInUser);
+apiRouter.post("/users/logout", logoutUser);
 
 // CRUD User
 apiRouter.post("/user/create", handleCreateUser);

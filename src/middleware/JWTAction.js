@@ -2,7 +2,12 @@ const jwt = require("jsonwebtoken");
 const { config } = require("dotenv");
 config();
 
-const nonSecurePaths = ["/", "/users/create-user", "/users/sign-in"];
+const nonSecurePaths = [
+  "/",
+  "/users/create-user",
+  "/users/sign-in",
+  "/users/logout",
+];
 
 const createJWT = (payload) => {
   try {
