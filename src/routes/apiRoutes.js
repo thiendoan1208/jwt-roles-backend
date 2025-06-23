@@ -1,11 +1,21 @@
 const express = require("express");
-const { signInUser, createUser, logoutUser } = require("../controllers/apiController");
+const {
+  signInUser,
+  createUser,
+  logoutUser,
+} = require("../controllers/apiController");
 const {
   handleCreateUser,
   handleListUser,
   handleUpdateUser,
   handledeleteUser,
 } = require("../controllers/userController");
+const {
+  handleCreateRole,
+  handleListRole,
+  handleUpdateRole,
+  handledeleteRole,
+} = require("../controllers/roleController");
 const { handleReadGroup } = require("../controllers/groupController");
 const {
   checkUserJWT,
@@ -29,6 +39,12 @@ apiRouter.delete("/user/delete", handledeleteUser);
 
 // Group
 apiRouter.get("/group/read", handleReadGroup);
+
+// Roles
+apiRouter.post("/role/create", handleCreateRole);
+apiRouter.get("/role/list", handleListRole);
+apiRouter.put("/role/update", handleUpdateRole);
+apiRouter.delete("/role/delete", handledeleteRole);
 
 module.exports = {
   apiRouter,
