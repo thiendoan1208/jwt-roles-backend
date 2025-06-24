@@ -20,7 +20,6 @@ const createRole = async (roles) => {
       };
     }
 
-    console.log(results);
     await db.Role.bulkCreate(results);
     return {
       EM: `Create roles successfully ${results.length}`,
@@ -37,6 +36,50 @@ const createRole = async (roles) => {
   }
 };
 
+const getAllRoles = async () => {
+  try {
+    let data = await db.Role.findAll({
+      attributes: ["id", "url", "description"],
+    });
+    return {
+      EM: `Get roles success`,
+      EC: 0,
+      DT: data,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      EM: "Something went wrong, cannot create roles",
+      EC: 1,
+      DT: "",
+    };
+  }
+};
+
+const deleteRole = async (roleID) => {
+  try {
+    await db.Role.destroy({
+      where: {
+        id: roleID,
+      },
+    });
+    return {
+      EM: `Delete roles success`,
+      EC: 0,
+      DT: "",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      EM: "Something went wrong, cannot create roles",
+      EC: 1,
+      DT: "",
+    };
+  }
+};
+
 module.exports = {
   createRole,
+  getAllRoles,
+  deleteRole,
 };
