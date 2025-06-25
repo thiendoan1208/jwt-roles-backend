@@ -15,6 +15,7 @@ const {
   handleListRole,
   handledeleteRole,
   handleGetRoleByGroup,
+  handleUpdateRoltoGroup,
 } = require("../controllers/roleController");
 const { handleReadGroup } = require("../controllers/groupController");
 const {
@@ -46,6 +47,7 @@ apiRouter.get("/role/list", handleListRole);
 // apiRouter.put("/role/update", handleUpdateRole);
 apiRouter.delete("/role/delete", handledeleteRole);
 apiRouter.get("/role/group-roles/:groupID", handleGetRoleByGroup);
+apiRouter.post("/role/assign-role-group", handleUpdateRoltoGroup);
 
 module.exports = {
   apiRouter,

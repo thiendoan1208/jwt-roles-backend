@@ -3,6 +3,7 @@ const {
   getAllRoles,
   deleteRole,
   getRolesByGroup,
+  updateRoleToGroup,
 } = require("../services/roleServices");
 
 const handleCreateRole = async (req, res) => {
@@ -81,9 +82,29 @@ const handleGetRoleByGroup = async (req, res) => {
   }
 };
 
+const handleUpdateRoltoGroup = async (req, res) => {
+  try {
+    let data = await updateRoleToGroup(req.body);
+
+    return res.status(200).json({
+      EM: data.EM,
+      EC: data.EC,
+      DT: data.DT,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      EM: "Error from server",
+      EC: "-1",
+      data: "",
+    });
+  }
+};
+
 module.exports = {
   handleCreateRole,
   handleListRole,
   handleGetRoleByGroup,
   handledeleteRole,
+  handleUpdateRoltoGroup,
 };

@@ -92,7 +92,6 @@ const getRolesByGroup = async (groupID) => {
       nest: true,
     });
 
-    console.log(data);
     return {
       EM: `Get roles success`,
       EC: 0,
@@ -108,9 +107,36 @@ const getRolesByGroup = async (groupID) => {
   }
 };
 
+const updateRoleToGroup = async (data) => {
+  let filterGroupID = data.find((item) => typeof item.groupID === "number");
+
+  try {
+    await db.GroupRole.destroy({
+      where: {
+        groupID: filterGroupID.groupID,
+      },
+    });
+
+    await db.GroupRole.bulkCreate(data);
+    return {
+      EM: `Update roles success`,
+      EC: 0,
+      DT: "",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      EM: "Something went wrong, cannot update roles",
+      EC: 1,
+      DT: "",
+    };
+  }
+};
+
 module.exports = {
   createRole,
   getAllRoles,
   deleteRole,
   getRolesByGroup,
+  updateRoleToGroup,
 };
