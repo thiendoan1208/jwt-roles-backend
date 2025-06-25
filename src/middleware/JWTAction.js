@@ -80,7 +80,10 @@ const checkUserPermission = (req, res, next) => {
     let email = req.user.email;
     let roles = req.user.roles;
     let currentURL = req.path;
-    let canAccess = roles.some((role) => role.Roles.url === currentURL);
+    let canAccess = roles.some(
+      (role) =>
+        role.Roles.url === currentURL || currentURL.startsWith(role.Roles.url)
+    );
 
     if (!roles || roles.length === 0) {
       return res.status(403).json({

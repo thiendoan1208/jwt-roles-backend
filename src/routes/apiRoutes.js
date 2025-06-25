@@ -13,8 +13,8 @@ const {
 const {
   handleCreateRole,
   handleListRole,
-  handleUpdateRole,
   handledeleteRole,
+  handleGetRoleByGroup,
 } = require("../controllers/roleController");
 const { handleReadGroup } = require("../controllers/groupController");
 const {
@@ -43,8 +43,9 @@ apiRouter.get("/group/read", handleReadGroup);
 // Roles
 apiRouter.post("/role/create", handleCreateRole);
 apiRouter.get("/role/list", handleListRole);
-apiRouter.put("/role/update", handleUpdateRole);
+// apiRouter.put("/role/update", handleUpdateRole);
 apiRouter.delete("/role/delete", handledeleteRole);
+apiRouter.get("/role/group-roles/:groupID", handleGetRoleByGroup);
 
 module.exports = {
   apiRouter,
